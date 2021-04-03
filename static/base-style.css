@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  margin: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: black;
+  flex-basis: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-text {
+  margin: 0 0.8rem;
+  height: 100%;
+}
+
+.logo-text>a {
+  color: white;
+}
+
+nav {
+  font-size: 1.2rem;
+  margin: 0.8rem;
+}
+
+nav>a {
+  margin: 0 1vw;
+  height: 100%;
+  color: white;
+}
+
+nav>a:hover, nav>a:active {
+  border-bottom: white solid;
+}
+
+footer {
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: center;
+  color: black;
+  position: fixed;
+  bottom: 0.8rem;
+}
+

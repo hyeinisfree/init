@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>init</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;900&display=swap"
+    />
+    <link rel="shortcut icon" href="{%static 'img/logo.png'%}" />
+    <link rel="stylesheet" href="{%static 'home-style.css'%}">
+  </head>
+  <body>
+    <img class="logo-img img-lt" src="{%static 'img/i.png'%}" />
+    <img class="logo-img img-rt" src="{%static 'img/n.png'%}" />
+    <img class="logo-img img-rb" src="{%static 'img/i.png'%}" />
+    <img class="logo-img img-lb" src="{%static 'img/t.png'%}" />
+    <header>
+      <div>
+        <h1 class="logo-text"><a href="">init</a></h1>
+      </div>
+      <nav>
+        <a href="/">About</a>
+        <a href="/">Notice</a>
+        <a href="/project/">Project</a>
+        <a href="/">Recruit</a>
+        <a href="/homework/">Homework</a>
+      </nav>
+    </header>
+    <div class="info">
+      <p>안녕하세요.</p>
+      <p>성신여자대학교 컴퓨터공학과 동아리</p>
+      <p>init 입니다.</p>
+    </div>
+    <footer>
+      <p>Copyright &copy; init</p>
+    </footer>
+  </body>
+</html>

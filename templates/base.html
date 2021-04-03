@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>init</title>
+  <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;900&display=swap"
+    />
+    <link rel="shortcut icon" href="{%static 'img/logo.png' %}" />
+    <link rel="stylesheet" href="{%static 'base-style.css' %}">
+</head>
+<body>
+  <header>
+    <div>
+      <h1 class="logo-text"><a href="/">init</a></h1>
+    </div>
+    <nav>
+      <a href="">About</a>
+      <a href="">Notice</a>
+      <a href="">Project</a>
+      <a href="">Recruit</a>
+      <a href="">Homework</a>
+    </nav>
+  </header>
+  {% block contents %} {% endblock %}
+  <footer>
+    <p>Copyright &copy; init</p>
+  </footer>
+</body>
+</html>
