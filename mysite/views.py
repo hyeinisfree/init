@@ -7,8 +7,7 @@ from django.views.generic.edit import CreateView
 from .forms import CreateUserForm, UpdateUserForm, ProfileForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 def home(request):
   return render(request, 'index.html')
@@ -18,6 +17,7 @@ class CreateUserView(CreateView):
   form_class =  CreateUserForm
   success_url = '/'
 
+@login_required()
 def update(request):
   user = request.user
   if request.method == 'POST':
@@ -29,6 +29,7 @@ def update(request):
     form = UpdateUserForm(instance = user)
   return render(request, 'update.html', {'form': form})
 
+@login_required()
 def password(request):
   user = request.user
   if request.method == 'POST':
@@ -41,17 +42,19 @@ def password(request):
       form = PasswordChangeForm(user)
   return render(request, 'password.html', {'form': form})
 
+@login_required()
 def get_profile(request):
   user = request.user
   return render(request, 'profile.html', {'user': user})
 
+@login_required()
 def update_profile(request):
   user = request.user
   if request.method == 'POST':
     form = ProfileForm(request.POST, request.FILES, instance=user.profile)
     if form.is_valid():
       form.save()
-      return redirect('/')
+      return redirect('/profile')
   else:
     form = ProfileForm(instance=user.profile)
   return render(request, 'profile_update.html', {'form': form})
