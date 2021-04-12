@@ -37,6 +37,7 @@ urlpatterns = [
     path('homework/<int:year>/', mysite.views.homework_list, name="homework_list"),
     path('homework/<int:year>/<int:homework_id>/', mysite.views.homework_detail, name='homework_detail'),
     path('homework/<int:year>/<int:homework_id>/submit/', mysite.views.homework_submit, name='homework_submit'),
+    path('homework/<int:year>/<int:homework_id>/update/', mysite.views.homwork_update, name='homework_update'),
     path('homework/<int:year>/<int:homework_id>/result/', mysite.views.homework_result, name='homework_result'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

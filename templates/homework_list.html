@@ -13,12 +13,14 @@
     {% for homework in homeworks %}
     <tr>
       <td>{{homework.id}}</td>
-      <td>{{homework.title}}</td>
+      <td><a href="/homework/{{homework.year}}/{{homework.id}}">{{homework.title}}</a></td>
       <td>{{homework.writer}}</td>
       <td>{{homework.end_date}}</td>
     </tr>
     {% endfor %}
   </tbody>
+</table>
+<table>
   <thead>
     <tr>
       <th>done</th>

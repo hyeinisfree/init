@@ -84,36 +84,47 @@ def homework_list(request, year):
 
 @login_required()
 def homework_detail(request, year, homework_id):
+  user = request.user
   homework = Homework.objects.get(id=homework_id)
-  return HttpResponse(homework)
+  done = False
+  if Homework_submit.objects.filter(user_id=user.id, homework_id=homework.id).exists():
+    done = True
+  return render(request, 'homework_detail.html', {'homework': homework, 'done': done})
 
 @login_required()
 def homework_submit(request, year, homework_id):
   homework = Homework.objects.get(id=homework_id)
   user = InitUser.objects.get(id=request.user.id)
-  try:
-    submit = Homework_submit.objects.get(homework_id=homework_id, user_id=user)
-    if request.method == "POST":
-      form = HomeworkUploadForm(request.POST, request.FILES, instance=submit)
+  if Homework_submit.objects.filter(homework_id=homework.id, user_id=user.id).exists():
+    return redirect('homework_update', year, homework_id)
+  if request.method == "POST":
+    form = HomeworkUploadForm(request.POST, request.FILES)
 
-      if form.is_valid():
-        obj = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=request.FILES['file'])
-        obj.save()
-        return redirect('homework_result', year, homework_id)
-    else:
-      form = HomeworkUploadForm(instance=submit)
-    return render(request, 'homework_submit.html', {'form': form, 'homework': homework})
-  except Homework_submit.DoesNotExist:
-    if request.method == "POST":
-      form = HomeworkUploadForm(request.POST, request.FILES)
+    if form.is_valid():
+      submit = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=request.FILES['file'])
+      submit.save()
+      return redirect('homework_result', year, homework_id)
+  else:
+    form = HomeworkUploadForm()
+  return render(request, 'homework_submit.html', {'form': form, 'homework': homework})
 
-      if form.is_valid():
-        obj = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=request.FILES['file'])
-        obj.save()
-        return redirect('homework_result', year, homework_id)
-    else:
-      form = HomeworkUploadForm()
-    return render(request, 'homework_submit.html', {'form': form, 'homework': homework})
+@login_required()
+def homwork_update(request, year, homework_id):
+  homework = Homework.objects.get(id=homework_id)
+  user = InitUser.objects.get(id=request.user.id)
+  if not Homework_submit.objects.filter(homework_id=homework.id, user_id=user.id).exists():
+    return redirect('homework_submit', year, homework_id)
+  submit = Homework_submit.objects.get(homework_id=homework_id, user_id=user)
+  if request.method == "POST":
+    form = HomeworkUploadForm(request.POST, request.FILES, instance=submit)
+
+    if form.is_valid():
+      submit = form.save(commit=False)
+      submit.save()
+      return redirect('homework_result', year, homework_id)
+  else:
+    form = HomeworkUploadForm(instance=submit)
+  return render(request, 'homework_update.html', {'form': form, 'homework': homework})
 
 @login_required()
 def homework_result(requerst, year, homework_id):
