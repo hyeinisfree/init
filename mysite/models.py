@@ -73,14 +73,14 @@ def homework_upload_to(instance, filename):
     'homework_uploads',
     year,
     writer,
-    homework + '_' +  user + extension,
-  ])        
+    homework + '_' + user + extension,
+  ])
 
 class Homework_submit(models.Model):
   homework_id = models.ForeignKey(Homework, on_delete=models.CASCADE, db_column='homework_id')
   user_id = models.ForeignKey(InitUser, on_delete=models.CASCADE, db_column='user_id')
   contents = models.TextField(blank=False)
-  file = models.FileField(null=True, blank=True, upload_to=homework_upload_to, storage=OverwriteStorage())
+  file = models.FileField(null=True, blank=True)
   submitted_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
