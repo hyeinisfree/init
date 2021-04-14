@@ -62,25 +62,22 @@ class Homework(models.Model):
 
 # Homework_submit file 형식에 맞춰 업로드 되게 하기
 def homework_upload_to(instance, filename):
-  year = instance.homework_id.year
-  writer = instance.homework_id.writer.username
-  homework = instance.homework_id.title
   user = instance.user_id.username
-  # 확장자 추출
-  extension = os.path.splitext(filename)[-1].lower()
+  homework = instance.homework_id.title
+  year = instance.homework_id.year
   # 결합 후 return
   return '/'.join([
     'homework_uploads',
     year,
-    writer,
-    homework + '_' + user + extension,
+    homework,
+    user + '_' + filename,
   ])
 
 class Homework_submit(models.Model):
   homework_id = models.ForeignKey(Homework, on_delete=models.CASCADE, db_column='homework_id')
   user_id = models.ForeignKey(InitUser, on_delete=models.CASCADE, db_column='user_id')
   contents = models.TextField(blank=False)
-  file = models.FileField(null=True, blank=True)
+  file = models.FileField(null=True, blank=True, upload_to=homework_upload_to)
   submitted_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):

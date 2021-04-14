@@ -101,7 +101,7 @@ def homework_submit(request, year, homework_id):
     form = HomeworkUploadForm(request.POST, request.FILES)
 
     if form.is_valid():
-      submit = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=request.FILES['file'])
+      submit = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=form.cleaned_data['file'])
       submit.save()
       return redirect('homework_result', year, homework_id)
   else:
@@ -119,6 +119,7 @@ def homwork_update(request, year, homework_id):
     form = HomeworkUploadForm(request.POST, request.FILES, instance=submit)
 
     if form.is_valid():
+      print(form.cleaned_data)
       submit = form.save(commit=False)
       submit.save()
       return redirect('homework_result', year, homework_id)
