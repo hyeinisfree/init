@@ -22,4 +22,4 @@ class ProfileForm(forms.ModelForm):
 class HomeworkUploadForm(forms.ModelForm):
   class Meta:
     model = Homework_submit
-    fields = ['contents', 'file']
+    fields = ['contents', 'sfile']

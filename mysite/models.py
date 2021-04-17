@@ -2,8 +2,8 @@ import os
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from imagekit.models import ProcessedImageField
-from imagekit.processors import Thumbnail
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import Thumbnail, ResizeToFill, ResizeToFit
 from django.db.models.signals import post_save
 from django.core.files.storage import FileSystemStorage
 from django import forms
@@ -77,7 +77,7 @@ class Homework_submit(models.Model):
   homework_id = models.ForeignKey(Homework, on_delete=models.CASCADE, db_column='homework_id')
   user_id = models.ForeignKey(InitUser, on_delete=models.CASCADE, db_column='user_id')
   contents = models.TextField(blank=False)
-  file = models.FileField(null=True, blank=True, upload_to=homework_upload_to)
+  sfile = models.FileField(null=True, blank=True, upload_to=homework_upload_to)
   submitted_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):

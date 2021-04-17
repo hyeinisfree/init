@@ -101,9 +101,9 @@ def homework_submit(request, year, homework_id):
     form = HomeworkUploadForm(request.POST, request.FILES)
 
     if form.is_valid():
-      submit = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=form.cleaned_data['file'])
+      submit = Homework_submit(homework_id=homework, user_id=user, contents=form.cleaned_data['contents'], file=form.cleaned_data['sfile'])
       submit.save()
-      return redirect('homework_result', year, homework_id)
+      return redirect('homework_detail', year, homework_id)
   else:
     form = HomeworkUploadForm()
   return render(request, 'homework_submit.html', {'form': form, 'homework': homework})
@@ -122,11 +122,7 @@ def homwork_update(request, year, homework_id):
       print(form.cleaned_data)
       submit = form.save(commit=False)
       submit.save()
-      return redirect('homework_result', year, homework_id)
+      return redirect('homework_detail', year, homework_id)
   else:
     form = HomeworkUploadForm(instance=submit)
   return render(request, 'homework_update.html', {'form': form, 'homework': homework})
-
-@login_required()
-def homework_result(requerst, year, homework_id):
-  return HttpResponse("homework result page")
