@@ -11,6 +11,15 @@ from django.contrib.auth.decorators import login_required
 
 from .models import InitUser, Profile, Homework, Homework_submit
 
+from django.core.mail.message import EmailMessage
+
+def send_email(request):
+    subject = "message"
+    to = ["kimhyein7110@gmail.com"]
+    from_email = "kimhyein7110@gmail.com"
+    message = "메지시 테스트"
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
+
 def home(request):
   return render(request, 'index.html')
 
