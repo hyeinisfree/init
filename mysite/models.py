@@ -79,11 +79,6 @@ class Homework_submit(models.Model):
   contents = models.TextField(blank=False)
   sfile = models.FileField(null=True, blank=True, upload_to=homework_upload_to)
   submitted_at = models.DateTimeField(auto_now=True)
-  late = models.BooleanField(default=False)
 
-  def is_late(self):
-    self.late = True
-    self.save()
-    
   def __str__(self):
     return self.homework_id.title 
