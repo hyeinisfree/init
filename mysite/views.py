@@ -11,6 +11,16 @@ from django.contrib.auth.decorators import login_required
 
 from .models import InitUser, Profile, Homework, Homework_submit
 
+from django.core.mail.message import EmailMessage
+from django.utils import timezone
+
+def send_email(request):
+    subject = "message"
+    to = ["kimhyein7110@gmail.com"]
+    from_email = "kimhyein7110@gmail.com"
+    message = "메지시 테스트"
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
+
 def home(request):
   return render(request, 'index.html')
 
@@ -86,10 +96,11 @@ def homework_list(request, year):
 def homework_detail(request, year, homework_id):
   user = request.user
   homework = Homework.objects.get(id=homework_id)
+  time = timezone.now()
   done = False
   if Homework_submit.objects.filter(user_id=user.id, homework_id=homework.id).exists():
     done = True
-  return render(request, 'homework_detail.html', {'homework': homework, 'done': done})
+  return render(request, 'homework_detail.html', {'homework': homework, 'done': done, 'time' : time})
 
 @login_required()
 def homework_submit(request, year, homework_id):

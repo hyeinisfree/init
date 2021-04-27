@@ -24,10 +24,14 @@
   </tbody>
 </table>
 <div>
-  {% if done %}
-  <a href="/homework/{{homework.year}}/{{homework.id}}/update/"><button>수정</button></a>
+  {% if time > homework.end_date %}
+    <p>과제 마감기한이 지났습니다!</p>
   {% else %}
-  <a href="/homework/{{homework.year}}/{{homework.id}}/submit/"><button>제출</button></a>
+    {% if done %}
+    <a href="/homework/{{homework.year}}/{{homework.id}}/update/"><button>수정</button></a>
+    {% else %}
+    <a href="/homework/{{homework.year}}/{{homework.id}}/submit/"><button>제출</button></a>
+    {% endif %}
   {% endif %}
 </div>
 {% endblock %}
