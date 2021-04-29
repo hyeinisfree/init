@@ -1,0 +1,125 @@
+{% extends 'base.html' %} {% load static %} {% block contents %}
+<h2>Notice</h2>
+{% if q %}
+  <h3>'{{ q }}' 검색 결과입니다.</h3>
+{% endif %}
+<table>
+  <thead>
+      <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>등록일</th>
+          <th>조회수</th>
+      </tr>
+      {% if not q %}
+      {% if notice_fixed %}
+      {% for notice in notice_fixed %}
+      <tr onclick="location.href='/notice/{{ notice.id }}/'">
+          <td>{{ notice.id }}</td>
+          <td>{{ notice.title|truncatechars:30 }}</td>
+          <td>{{ notice.writer }}</td>
+          <td>{{ notice.created_at|date:'Y. m. d' }}</td>
+          <td>{{ notice.hits }}</td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+      {% endif %}
+  </thead>
+  <tbody>
+      {% if notice_list %}
+      {% for notice in notice_list %}
+      <tr onclick="location.href='/notice/{{ notice.id }}/'">
+          <td>{{ notice.id }}</td>
+          <td>{{ notice.title|truncatechars:30 }}</td>
+          <td>{{ notice.writer }}</td>
+          <td>{{ notice.created_at|date:'Y. m. d' }}</td>
+          <td>{{ notice.hits }}</td>
+      </tr>
+      {% endfor %}
+      {% else %}
+        {% if q %}
+        <tr>
+          <td colspan="5">
+            일치하는 검색 결과가 없습니다.
+          </td>
+        </tr> 
+        {% else %}
+          <tr>
+            <td colspan="5">
+              작성된 게시글이 없습니다.
+            </td>
+          </tr>
+        {% endif %}
+      {% endif %}
+  </tbody>
+</table>
+<form action="" method="GET">
+  <div>
+    <div>
+        <select name="type">
+            <option value="all">전체</option>
+            <option value="title_contents">제목+내용</option>
+            <option value="title">제목</option>
+            <option value="contents">내용</option>
+            <option value="writer">작성자</option>
+        </select>
+    </div>
+    <div>
+        <input type="text" name="q" value="{{ q }}" placeholder="검색어를 입력해주세요.">
+    </div>
+    <div>
+        <button type="submit" id="search_btn">검색</button>
+    </div>
+  </div>
+</form>
+<div>
+  {% if is_paginated %}
+  <ul>
+      {% if page_obj.has_previous %}
+      <li>
+        <a href="?type={{ type }}&q={{ q }}&page={{ page_obj.previous_page_number }}">이전</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="#">이전</a>
+      </li>
+      {% endif %}
+
+      {% for page in page_range %}
+      <li class="{% if page == page_obj.number %} activate {% endif %}">
+          <a href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+      </li>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <li>
+          <a href="?type={{ type }}&q={{ q }}&page={{ page_obj.next_page_number }}">다음</a>
+      </li>
+      {% else %}
+      <li>
+          <a href="#" style="font-size: 15px;">다음</a>
+      </li>
+      {% endif %}
+  </ul>
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+  target = window.location.search.split('&')[0].split('=')[1]
+  var type = document.getElementsByTagName('option')
+  for (var i = 0; i < 5; i++) {
+      if (type[i].value === target) {
+          type[i].setAttribute('selected', 'selected')
+      }
+  }
+</script>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+{{ message.message }} 
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}

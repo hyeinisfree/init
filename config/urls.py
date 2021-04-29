@@ -42,5 +42,8 @@ urlpatterns = [
     path('homework/<int:year>/<int:homework_id>/', mysite.views.homework_detail, name='homework_detail'),
     path('homework/<int:year>/<int:homework_id>/submit/', mysite.views.homework_submit, name='homework_submit'),
     path('homework/<int:year>/<int:homework_id>/update/', mysite.views.homwork_update, name='homework_update'),
+
+    path('notice/', mysite.views.NoticeListView.as_view(), name='notice_list'),
+    path('notice/<int:notice_id>/', mysite.views.notice_detail, name='notice_detail')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

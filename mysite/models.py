@@ -81,4 +81,17 @@ class Homework_submit(models.Model):
   submitted_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
-    return self.homework_id.title 
+    return self.homework_id.title
+
+class Notice(models.Model):
+  year = models.CharField(max_length=20, blank=False)
+  title = models.CharField(max_length=200, blank=False)
+  contents = models.TextField(blank=False)
+  writer = models.ForeignKey(InitUser, on_delete=models.DO_NOTHING, db_column='writer')
+  created_at  = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+  hits = models.PositiveIntegerField(default=0)
+  top_fixed = models.BooleanField(default=False)
+
+  def __str__(self):
+    return self.title
