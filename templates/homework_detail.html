@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block contents %}
+<h2>{{homework.title}}</h2>
+<table>
+  <tbody>
+    <tr>
+      <td>{{homework.year}}</td>
+      <td>{{homework.writer}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>{{homework.contents}}</div>
+<table>
+  <tbody>
+    <tr>
+      <td>발행</td>
+      <td>수정</td>
+      <td>마감시간</td>
+    </tr>
+    <tr>
+      <td>{{homework.created_at}}</td>
+      <td>{{homework.updated_at}}</td>
+      <td>{{homework.end_date}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  {% if time > homework.end_date %}
+    <p>과제 마감기한이 지났습니다!</p>
+  {% else %}
+    {% if done %}
+    <a href="/homework/{{homework.year}}/{{homework.id}}/update/"><button>수정</button></a>
+    {% else %}
+    <a href="/homework/{{homework.year}}/{{homework.id}}/submit/"><button>제출</button></a>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

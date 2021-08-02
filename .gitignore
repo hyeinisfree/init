@@ -1,0 +1,9 @@
+db.sqlite3
+migrations/
+.vscode
+.DS_Store
+secrets.json
+*.log
+*.pot
+*.pyc
+__pycache__/

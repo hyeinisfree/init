@@ -1,0 +1,86 @@
+body {
+  height: 100vh;
+  /* background-image: url('img/bg.png'); */
+  background: black;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+nav {
+  font-size: 1.2rem;
+}
+
+nav>a {
+  margin: 0 1vw;
+}
+
+header {
+  flex-basis: 10%;
+}
+
+.info {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: left;
+  position: absolute;
+  top: 35%;
+}
+
+.info>p{
+  margin: 0.5em;
+}
+
+.logo-img 
+{
+  height: 30%;
+  width: auto;
+}
+
+.img-rt {
+  position: fixed;
+  z-index: -1;
+  right: 0;
+  top: 0;
+}
+
+.img-rb {
+  position: fixed;
+  z-index: -1;
+  right: 0; 
+  bottom: 0;
+}
+
+.img-lt {
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  top: 0;
+}
+
+.img-lb {
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+}
+
+footer {
+  width: 100%;
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+  position: fixed;
+  bottom: 0.8rem;
+}

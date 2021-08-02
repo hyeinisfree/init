@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% load static %} {% block contents %}
+<div>
+  {% if user.profile.img %}
+  <img src="{{user.profile.img.url}}" width="120" />
+  {% else %}
+  <img src="{%static 'img/default.png' %}" width="120" />
+  {% endif %}
+</div>
+<p>{{user.profile.nickname}}</p>
+<p>{{user.profile.birthday}}</p>
+<p>{{user.profile.bio}}</p>
+<p>{{user.profile.git}}</p>
+{% endblock %}

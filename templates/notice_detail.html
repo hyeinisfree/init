@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %} {% block contents %}
+<h2>{{notice.title}}</h2>
+<table>
+  <tbody>
+    <tr>
+      <td>{{notice.year}}</td>
+      <td>{{notice.writer}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>{{notice.contents}}</div>
+<table>
+  <tbody>
+    <tr>
+      <td>발행</td>
+      <td>수정</td>
+    </tr>
+    <tr>
+      <td>{{notice.created_at}}</td>
+      <td>{{notice.updated_at}}</td>
+    </tr>
+  </tbody>
+</table>
+<button onclick="location.href='/notice/'">목록으로</button>
+{% endblock %}

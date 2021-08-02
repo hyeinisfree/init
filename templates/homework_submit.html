@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% load static %} {% block contents %}
+<h2>Submit</h2>
+<h4>{{homework.title}}</h4>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
